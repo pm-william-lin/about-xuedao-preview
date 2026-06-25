@@ -354,13 +354,13 @@
       border-bottom: 1px solid var(--line);
     }
 
-    /* 山景全幅墊底，退到文字後方 */
+    /* 攝影主視覺全幅墊底，退到文字後方 */
     .hero__bg {
       position: absolute;
       left: 0;
       right: 0;
       bottom: -1px;
-      height: 82%;
+      height: 100%;
       z-index: 0;
       pointer-events: none;
     }
@@ -369,12 +369,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center bottom;
+      object-position: center 42%;
       display: block;
-      /* 上半天空與紙同色，multiply 讓白消失、山稜自然融進頁面 */
-      mix-blend-mode: multiply;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%);
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 34%);
+      /* 照片頂端淡入暖白，讓上方文字區乾淨、與 header 無縫 */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 30%);
     }
 
     /* 由上而下的暖白柔光，撐起文字對比、讓山景往下沉 */
@@ -1106,7 +1105,7 @@
       }
 
       .hero__bg {
-        height: 70%;
+        height: 100%;
       }
 
       .hero__lead {
@@ -1441,7 +1440,7 @@
     <main>
       <section class="hero" id="top">
         <div class="hero__bg" aria-hidden="true">
-          <img src="candBG.png" alt="">
+          <img src="candM1.png" alt="">
         </div>
         <div class="container hero__inner">
           <p class="eyebrow">CMoney 旗下多元知識內容平台</p>
