@@ -1,0 +1,15 @@
+# 暫存/比稿/截圖/腳本，不上線
+_shot*.cjs
+_shot*.mjs
+gen-img.mjs
+candA.png
+candA2.png
+candB.png
+candC.png
+keytest.png
+index-A.html
+index-B.html
+index-C.html
+hero-shot*.png
+top-*.png
+shot-*.png

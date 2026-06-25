@@ -147,6 +147,179 @@
       white-space: nowrap;
     }
 
+    /* === 主分類導覽（移植自正式站主題 cmoney-investment-blog）=== */
+    .site-nav {
+      position: sticky;
+      top: 88px;
+      z-index: 49;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .site-nav__inner {
+      display: flex;
+      align-items: stretch;
+      height: 48px;
+    }
+
+    .site-nav__item {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .site-nav__link {
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+
+    .site-nav__item:first-child .site-nav__link {
+      padding-left: 0;
+    }
+
+    .site-nav__link:hover,
+    .site-nav__link:focus-visible {
+      color: var(--brand);
+      outline: none;
+    }
+
+    .site-nav__item--has-dropdown::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 8px;
+    }
+
+    .site-nav__dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 192px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+      z-index: 5;
+    }
+
+    .site-nav__item--has-dropdown:hover .site-nav__dropdown,
+    .site-nav__item--has-dropdown:focus-within .site-nav__dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .site-nav__dropdown-item {
+      display: block;
+      padding: 10px 16px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-soft);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .site-nav__dropdown-item:hover,
+    .site-nav__dropdown-item:focus-visible {
+      background: var(--surface-muted);
+      color: var(--brand);
+      outline: none;
+    }
+
+    /* 活動入口（靠右）：深墨膠囊 + 金描邊 + 招牌金徽章 */
+    .site-nav__event {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      align-self: center;
+      flex-shrink: 0;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(201, 168, 121, 0.5);
+      background: #1a1f2e;
+      color: #f4ecdd;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .site-nav__event:hover,
+    .site-nav__event:focus-visible {
+      background: #2a3142;
+      border-color: #c9a879;
+      box-shadow: 0 4px 14px rgba(26, 31, 46, 0.22);
+      outline: none;
+    }
+
+    .site-nav__event-out {
+      display: inline-flex;
+      align-items: center;
+      opacity: 0.85;
+    }
+
+    .site-nav__event-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: #ffc875;
+      color: #1a1f2e;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .site-nav__event-title {
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 720px) {
+      .site-nav {
+        position: static;
+      }
+
+      .site-nav__inner {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .site-nav__inner::-webkit-scrollbar {
+        display: none;
+      }
+
+      .site-nav__event {
+        display: none;
+      }
+    }
+
     h1,
     h2,
     h3 {
@@ -172,22 +345,74 @@
     }
 
     .hero {
+      position: relative;
+      overflow: hidden;
       min-height: auto;
       display: block;
-      padding: 96px 0 88px;
-      background:
-        linear-gradient(115deg, rgba(250, 250, 247, 1) 0%, rgba(250, 250, 247, 0.98) 48%, rgba(230, 240, 239, 0.92) 100%);
+      padding: 120px 0 168px;
+      background: var(--paper);
       border-bottom: 1px solid var(--line);
     }
 
-    .hero__grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
-      align-items: center;
-      gap: 64px;
+    /* 山景全幅墊底，退到文字後方 */
+    .hero__bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 82%;
+      z-index: 0;
+      pointer-events: none;
     }
 
-    .hero__grid > *,
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      display: block;
+      /* 上半天空與紙同色，multiply 讓白消失、山稜自然融進頁面 */
+      mix-blend-mode: multiply;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 34%);
+    }
+
+    /* 由上而下的暖白柔光，撐起文字對比、讓山景往下沉 */
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        var(--paper) 0%,
+        rgba(250, 250, 247, 0.92) 30%,
+        rgba(250, 250, 247, 0.55) 46%,
+        rgba(250, 250, 247, 0) 62%
+      );
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    /* 局部暖白光暈，只護住文字、邊緣淡出讓山景照常露出 */
+    .hero__inner::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -48px -90px -40px -48px;
+      background: radial-gradient(
+        118% 102% at 22% 38%,
+        var(--paper) 0%,
+        rgba(250, 250, 247, 0.92) 42%,
+        rgba(250, 250, 247, 0) 76%
+      );
+    }
+
     .section__header > *,
     .footer__grid > *,
     .topic-card,
@@ -230,23 +455,7 @@
       color: var(--ink-soft);
       font-size: 20px;
       line-height: 1.85;
-    }
-
-    .hero__visual {
-      position: relative;
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
-      box-shadow: var(--shadow);
-    }
-
-    .hero__visual img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      border: 1px solid var(--line);
-      border-radius: 8px;
+      text-wrap: pretty;
     }
 
     .hero__note {
@@ -300,28 +509,17 @@
     }
 
     .section__header {
-      display: grid;
-      grid-template-columns: minmax(0, 0.76fr) minmax(280px, 0.54fr);
-      gap: 48px;
-      align-items: center;
-      margin-bottom: 48px;
-      padding-top: 22px;
-      border-top: 3px solid var(--brand);
-    }
-
-    .section--tint .section__header {
-      border-top-color: var(--brand);
-    }
-
-    .section__header--solo {
-      grid-template-columns: 1fr;
+      display: block;
+      margin-bottom: 40px;
     }
 
     .section__intro {
-      margin: 0;
+      max-width: 760px;
+      margin: 14px 0 0;
       color: var(--ink-soft);
       font-size: 18px;
       line-height: 1.85;
+      text-wrap: pretty;
     }
 
     .topic-grid {
@@ -618,20 +816,23 @@
 
     .cmoney-lead {
       max-width: 880px;
-      margin: 40px auto 0;
+      margin: 40px 0 0;
       color: var(--ink-soft);
       font-size: 18px;
       line-height: 1.9;
-      text-align: center;
+      text-align: left;
+      text-wrap: pretty;
     }
 
     .cmoney-cta {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      gap: 18px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px 32px;
       margin-top: 52px;
-      text-align: center;
+      text-align: left;
     }
 
     .cmoney-cta__text {
@@ -862,7 +1063,6 @@
         scroll-margin-top: 120px;
       }
 
-      .hero__grid,
       .section__header,
       .footer__grid {
         grid-template-columns: 1fr;
@@ -896,11 +1096,17 @@
       }
 
       .hero {
-        padding: 46px 0 36px;
+        padding: 56px 0 120px;
       }
 
-      .hero__grid {
-        gap: 34px;
+      .cmoney-cta {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+
+      .hero__bg {
+        height: 70%;
       }
 
       .hero__lead {
@@ -1166,18 +1372,82 @@
       </div>
     </header>
 
+    <nav class="site-nav" aria-label="主要分類導覽">
+      <div class="container site-nav__inner">
+        <div class="site-nav__item site-nav__item--has-dropdown">
+          <a class="site-nav__link" href="https://cmoneylearning.com.tw/topics/finance/">理財</a>
+          <div class="site-nav__dropdown" role="list">
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/finance/insurance/">保險</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/finance/%e6%88%bf%e5%9c%b0%e7%94%a2/">房地產</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/finance/investment/">投資</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/finance/financial-planning/">理財規劃</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/finance/trend/">趨勢</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/finance/%e9%80%80%e4%bc%91%e8%b2%a1%e5%8b%99%e8%a6%8f%e5%8a%83/">退休財務規劃</a>
+          </div>
+        </div>
+        <div class="site-nav__item site-nav__item--has-dropdown">
+          <a class="site-nav__link" href="https://cmoneylearning.com.tw/topics/job/">職場</a>
+          <div class="site-nav__dropdown" role="list">
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/job/productivity/">生產力</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/job/organizational-management/">組織管理</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/job/mindset/">職場心態</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/job/self-improvement/">自我成長</a>
+          </div>
+        </div>
+        <div class="site-nav__item site-nav__item--has-dropdown">
+          <a class="site-nav__link" href="https://cmoneylearning.com.tw/topics/family/">家庭</a>
+          <div class="site-nav__dropdown" role="list">
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/family/marriage/">婚姻</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/family/educate/">教育</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/family/parent-child/">親子</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/family/%e9%95%b7%e8%bc%a9/">長輩</a>
+          </div>
+        </div>
+        <div class="site-nav__item site-nav__item--has-dropdown">
+          <a class="site-nav__link" href="https://cmoneylearning.com.tw/topics/health/">健康</a>
+          <div class="site-nav__dropdown" role="list">
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/health/mental-health/">心理健康</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/health/disease/">疾病</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/health/sleep/">睡眠</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/health/body-mind-spirit/">身心靈</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/health/%e9%a3%b2%e9%a3%9f/">飲食</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/health/%e9%a4%8a%e7%94%9f%e4%bf%9d%e5%81%a5/">養生保健</a>
+          </div>
+        </div>
+        <div class="site-nav__item site-nav__item--has-dropdown">
+          <a class="site-nav__link" href="https://cmoneylearning.com.tw/topics/interpersonal/">人際關係</a>
+          <div class="site-nav__dropdown" role="list">
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/interpersonal/peer-relationships/">同儕關係</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/interpersonal/emotional-management/">情緒管理</a>
+            <a class="site-nav__dropdown-item" role="listitem" href="https://cmoneylearning.com.tw/topics/interpersonal/love/">愛情</a>
+          </div>
+        </div>
+        <a class="site-nav__event" href="https://cmoneylearning.com.tw/books/future100days-2026?utm_source=cmoneylearning&amp;utm_medium=webNav"
+          target="_blank" rel="noopener" aria-label="未來 1000 天 新書上市（另開新分頁）">
+          <span class="site-nav__event-badge">新書上市</span>
+          <span class="site-nav__event-title">未來 1000 天</span>
+          <span class="site-nav__event-out" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          <polyline points="15 3 21 3 21 9" />
+          <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+          </span>
+          </a>
+      </div>
+    </nav>
+
     <main>
       <section class="hero" id="top">
-        <div class="container hero__grid">
-          <div>
-            <p class="eyebrow">CMoney 旗下多元知識內容平台</p>
-            <h1>關於學到</h1>
-            <p class="hero__subtitle">每一次學到，都讓人生更完整</p>
-            <p class="hero__lead">學到以理財、職場、家庭、健康與人際關係為五大內容支柱，結合 Money 錢雜誌、金尉出版、知識轉譯與數位內容服務，為你建立好理解、好學習、有新知的知識入口。在資訊快速流動、選擇成本升高的情況下，我們希望讓每一次閱讀，都成為更穩定的人生判斷。</p>
-          </div>
-          <div class="hero__visual" aria-label="學到品牌視覺">
-            <img src="https://cmoneylearning.com.tw/wp-content/uploads/2026/04/Frame-1261154465.png" alt="學到網站主視覺">
-          </div>
+        <div class="hero__bg" aria-hidden="true">
+          <img src="candBG.png" alt="">
+        </div>
+        <div class="container hero__inner">
+          <p class="eyebrow">CMoney 旗下多元知識內容平台</p>
+          <h1>關於學到</h1>
+          <p class="hero__subtitle">每一次學到，都讓人生更完整</p>
+          <p class="hero__lead">學到以理財、職場、家庭、健康與人際關係為五大內容支柱，結合 Money 錢雜誌、金尉出版、知識轉譯與數位內容服務，為你建立好理解、好學習、有新知的知識入口。在資訊快速流動、選擇成本升高的情況下，我們希望讓每一次閱讀，都成為更穩定的人生判斷。</p>
         </div>
       </section>
 
@@ -1249,7 +1519,7 @@
             <div>
               <h2 id="eeat-title">學到編輯群</h2>
             </div>
-            <p class="section__intro">學到的編輯群來自健康、生活、教育、命理文化與觀點策展等不同領域。每一篇文章都從讀者真實處境出發，將故事與觀點整合成值得一讀的內容。</p>
+            <p class="section__intro">學到的編輯群來自健康、生活、教育、命理文化與觀點策展等不同領域。每一篇文章都從讀者真實處境出發，將故事與觀點整合成值得一讀的<span style="white-space:nowrap">內容。</span></p>
           </div>
 
           <div class="author-grid" aria-label="編輯團隊具名作者">
@@ -1370,7 +1640,7 @@
             </article>
           </div>
 
-          <p class="cmoney-lead">我們相信好的產品能幫助用戶培養習慣，帶來正向改變，並一步步實現屬於自己的美好人生。<br>學到承接 CMoney 長期累積的經驗與資源，將這些基礎轉化為面向一般讀者的知識策展與內容服務，<br>讓重要議題被看見、不同觀點被理解，不同讀者學到他在乎的知識。</p>
+          <p class="cmoney-lead">我們相信好的產品能幫助用戶培養習慣，帶來正向改變，並一步步實現屬於自己的美好人生。學到承接 CMoney 長期累積的經驗與資源，將這些基礎轉化為面向一般讀者的知識策展與內容服務，讓重要議題被看見、不同觀點被理解，不同讀者學到他在乎的知識。</p>
 
           <div class="cmoney-cta">
             <p class="cmoney-cta__text">想更認識學到背後的團隊與 CMoney？</p>
